@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+	<meta charset="utf8">
+
+	<style>
+		#div {
+			width: 1000px;
+			height: 600px;
+			background-color: rgba(27, 59, 78, 1);
+			background-image: linear-gradient(to bottom, transparent, rgba(27, 59, 78, 0.5));
+			padding: 20px;
+			margin-left: 50px;
+			margin-top: 80px
+		}
+
+		table {
+			height: auto;
+			width: 98%;
+			padding: 5px;
+			border-collapse: separate;
+			border-spacing: 2px;
+			background-color: rgba(0, 0, 0, 0.3);
+			margin: 10px;
+		}
+
+		th {
+			font-size: 1.6em;
+			text-transform: capitalize;
+			color: rgba(221, 240, 210, 0.9);
+			background-color: black;
+		}
+
+		tr,
+		td {
+			border: 2px solid black;
+			text-align: center;
+			font-family: 'Open Sans', sans-serif;
+			font-weight: bold;
+			font-size: 1.1em;
+			line-height: 1.66667em;
+			color: rgba(256, 234, 211, 0.8);
+			text-transform: capitalize;
+			padding: 2px;
+		}
+	</style>
+
+</head>
+
+
+
+<body>
+
+	<div id="div">
+
+		<table>
+
+			<colgroup>
+				<col />
+				<col />
+				<col />
+				<col />
+				<col style="background-color: rgba(17, 19, 88,1);" />
+				<col />
+				<col />
+				<col style="background-color: rgba(17, 19, 88,1);" />
+				<col />
+				<col />
+				<col />
+				<col style="background-color: rgba(147, 09, 18,1);" />
+				<col />
+				<col />
+				<col style="background-color: rgba(147, 09, 18,1);" />
+				<col />
+				<col />
+				<col />
+				<col style="background-color: rgba(47, 109, 118,1);" />
+			</colgroup>
+
+			<thead>
+				<tr>
+					<th colspan="20">Relatório de Vendas</th>
+				</tr>
+				<tr>
+					<th id="showDate" colspan="20"></th>
+				</tr>
+				<tr>
+					<td colspan="1" rowspan="3">Produto</td>
+					<td colspan="1" rowspan="3">Preço</td>
+					<td colspan="1" rowspan="3">Abastecimento</td>
+					<td colspan="1" rowspan="3">não vendidos</td>
+					<td colspan="14" style="background-color: rgba(27, 59, 78,1);">Vendidos</td>
+					<td colspan="1" rowspan="3">Total</td>
+				</tr>
+				<tr>
+					<td colspan="7">Dinheiro</td>
+					<td colspan="7">Cartão</td>
+				</tr>
+				<tr>
+					<td colspan="3">qtd</td>
+					<td colspan="4">valor</td>
+					<td colspan="3">qtd</td>
+					<td colspan="4">valor</td>
+				</tr>
+			</thead>
+
+			<tbody id="tbody" style="color:white"></tbody>
+
+			<tfoot></tfoot>
+
+		</table>
+
+	</div>
+
+	<button onclick="vender()">Relatório</button>
+
+
+
+	<script>
+
+		var produtos = [];
+		var preco = [];
+		var abastecer = [];
+		var not_sell = [];
+		var dn_qtd = [];
+		var dn_valor = [];
+		var ct_qtd = [];
+		var ct_valor = [];
+		var total = [];
+
+
+		// produto_one // 
+		var produto_one = "Banoffee";
+		var produto_one_abs = 10;
+		var produto_one_preco = 12;
+		var produto_one_qtd_dn = 3;
+		var produto_one_valor_dn = produto_one_preco * produto_one_qtd_dn;
+		var produto_one_qtd_ct = 5;
+		var produto_one_valor_ct = produto_one_preco * produto_one_qtd_ct;
+		var produto_one_total = produto_one_valor_dn + produto_one_valor_ct;
+		var produto_one_n_sell = produto_one_abs - produto_one_qtd_dn - produto_one_qtd_ct;
+
+
+
+		// produto_two // 
+		var produto_two = "Pudim";
+		var produto_two_abs = 10;
+		var produto_two_preco = 10;
+		var produto_two_qtd_dn = 7;
+		var produto_two_valor_dn = produto_two_preco * produto_two_qtd_dn;
+		var produto_two_qtd_ct = 2;
+		var produto_two_valor_ct = produto_two_preco * produto_two_qtd_ct;
+		var produto_two_total = produto_two_valor_dn + produto_two_valor_ct;
+		var produto_two_n_sell = produto_two_abs - produto_two_qtd_dn - produto_two_qtd_ct;
+
+
+
+		// produto_three // 
+		var produto_three = "Mousse";
+		var produto_three_abs = 10;
+		var produto_three_preco = 12;
+		var produto_three_qtd_dn = 4;
+		var produto_three_valor_dn = produto_three_preco * produto_three_qtd_dn;
+		var produto_three_qtd_ct = 6;
+		var produto_three_valor_ct = produto_three_preco * produto_three_qtd_ct;
+		var produto_three_total = produto_three_valor_dn + produto_three_valor_ct;
+		var produto_three_n_sell = produto_three_abs - produto_three_qtd_dn - produto_three_qtd_ct;
+
+
+		// produto_four // 
+		var produto_four = "Pote";
+		var produto_four_abs = 10;
+		var produto_four_preco = 15;
+		var produto_four_qtd_dn = 2;
+		var produto_four_valor_dn = produto_four_preco * produto_four_qtd_dn;
+		var produto_four_qtd_ct = 5;
+		var produto_four_valor_ct = produto_four_preco * produto_four_qtd_ct;
+		var produto_four_total = produto_four_valor_dn + produto_four_valor_ct;
+		var produto_four_n_sell = produto_four_abs - produto_four_qtd_dn - produto_four_qtd_ct;
+
+
+
+
+		if (produto_one_abs > 0) {
+
+			produtos.push(produto_one);
+			preco.push(produto_one_preco);
+			abastecer.push(produto_one_abs);
+			dn_qtd.push(produto_one_qtd_dn);
+			dn_valor.push(produto_one_valor_dn);
+			ct_qtd.push(produto_one_qtd_ct);
+			ct_valor.push(produto_one_valor_ct);
+			total.push(produto_one_total);
+			not_sell.push(produto_one_n_sell);
+		}
+
+
+		if (produto_two_abs > 0) {
+
+			produtos.push(produto_two);
+			preco.push(produto_two_preco);
+			abastecer.push(produto_two_abs);
+			dn_qtd.push(produto_two_qtd_dn);
+			dn_valor.push(produto_two_valor_dn);
+			ct_qtd.push(produto_two_qtd_ct);
+			ct_valor.push(produto_two_valor_ct);
+			total.push(produto_two_total);
+			not_sell.push(produto_two_n_sell);
+
+		}
+
+
+		if (produto_three_abs > 0) {
+
+			produtos.push(produto_three);
+			preco.push(produto_three_preco);
+			abastecer.push(produto_three_abs);
+			dn_qtd.push(produto_three_qtd_dn);
+			dn_valor.push(produto_three_valor_dn);
+			ct_qtd.push(produto_three_qtd_ct);
+			ct_valor.push(produto_three_valor_ct);
+			total.push(produto_three_total);
+			not_sell.push(produto_three_n_sell);
+
+		}
+
+
+		if (produto_four_abs > 0) {
+
+			produtos.push(produto_four);
+			preco.push(produto_four_preco);
+			abastecer.push(produto_four_abs);
+			dn_qtd.push(produto_four_qtd_dn);
+			dn_valor.push(produto_four_valor_dn);
+			ct_qtd.push(produto_four_qtd_ct);
+			ct_valor.push(produto_four_valor_ct);
+			total.push(produto_four_total);
+			not_sell.push(produto_four_n_sell);
+
+		}
+
+
+
+		vender = () => {
+			let tbody = document.getElementById('tbody');
+
+			for (let i = 0; i < produtos.length; i++) {
+
+				let tr = tbody.insertRow();
+				//tbody.innerText='';					
+				let td_produto = tr.insertCell();
+				let td_preco = tr.insertCell();
+				let td_abast = tr.insertCell();
+				let td_notsell = tr.insertCell();
+
+				let td_qtdDn = tr.insertCell();
+				td_qtdDn.setAttribute("colspan", "3");
+
+				let td_valorDn = tr.insertCell();
+				td_valorDn.setAttribute("colspan", "4");
+
+				let td_qtdCt = tr.insertCell();
+				td_qtdCt.setAttribute("colspan", "3");
+
+				let td_valorCt = tr.insertCell();
+				td_valorCt.setAttribute("colspan", "4");
+
+				let td_total = tr.insertCell();
+
+				td_produto.innerText = produtos[i];
+				td_preco.innerText = preco[i];
+				td_abast.innerText = abastecer[i];
+				td_notsell.innerText = not_sell[i];
+
+				td_qtdDn.innerText = dn_qtd[i];
+				td_valorDn.innerText = dn_valor[i];
+				td_qtdCt.innerText = ct_qtd[i];
+				td_valorCt.innerText = ct_valor[i];
+
+				td_total.innerText = total[i];
+
+			}
+		}
+
+		var data = new Date().toLocaleString();
+		let thData = document.getElementById('showDate');
+		thData.innerText = data;
+
+
+	</script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
